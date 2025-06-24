@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import LikedSlice from './LikedSlice'
+
+import AddSlice from './AddSlice'
 
 const Store =configureStore({
     reducer:{
-        liked:LikedSlice
+        additems:AddSlice
     }
 })
 

@@ -2,11 +2,18 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { Heart } from 'lucide-react';
 import Empty from './Empty';
-
+import { useDispatch } from 'react-redux';
+import { removeItem } from '../utils/redux/AddSlice';
 
 const Menu = ({Item}) => {
   
-    const likedItems = useSelector(state => state.liked.likedItems);
+    const likedItems = useSelector(state => state.additems);
+    
+    const dispatch = useDispatch();
+
+    function handleRemove(item){
+      dispatch(removeItem(item))
+    }
   
     return (
       <>
@@ -27,12 +34,7 @@ const Menu = ({Item}) => {
                     alt={item.name}
                     className="w-full h-48 object-contain"
                   />
-                  <Heart
-                    className={`absolute top-2 right-2 w-6 h-6 cursor-pointer ${
-                      likedItems.includes(item.id) ? 'fill-red-500 text-red-500' : 'text-gray-400'
-                    }`}
-                   
-                  />
+                 
                   <div className="p-4">
                     <h2 className="text-xl font-semibold text-purple-700 mb-2">{item.name}</h2>
                     <p className="text-sm text-gray-600 mb-1">
@@ -41,6 +43,7 @@ const Menu = ({Item}) => {
                     <p className="text-sm text-gray-600">
                       ⏱ <span className="font-medium">Prep Time:</span> {item.prepTimeMinutes} mins
                     </p>
+                    <button className='bg-red-500 p-2' onClick={()=>handleRemove(item.id)}>Remove</button>
                   </div>
                 </div>
               ))}
@@ -56,7 +59,7 @@ const Menu = ({Item}) => {
 const Cart = () => {
 
  
-    const select = useSelector((Store)=>Store.liked.likedItems)
+    const select = useSelector((Store)=>Store.additems)
 
 
   return (

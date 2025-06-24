@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 const Navbar = () => {
 
-    const Cart = useSelector((Store)=>Store.liked.likedItems)
+    const Cart = useSelector((Store)=>Store.additems)
     const [isOpen,setOpen] = useState(false);
     
 

@@ -1,20 +1,18 @@
 import React from 'react';
 import useApi from '../hooks/useApi';
 import Shimmer from './Shimmer';
-import { Heart } from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleLike } from '../utils/redux/LikedSlice';
+import { addItem } from '../utils/redux/AddSlice';
 
 
 const Menu = () => {
   const ap = useApi();
   const dispatch = useDispatch();
 
-  function handleAddItem(itemId){
-    dispatch(toggleLike(itemId))
-  }
+  function handleAddItem(item){
+    dispatch(addItem(item))
 
-  const likedItems = useSelector(state => state.liked.likedItems);
+  }
 
   return (
     <>
@@ -35,12 +33,6 @@ const Menu = () => {
                   alt={item.name}
                   className="w-full h-48 object-contain"
                 />
-                <Heart
-                  className={`absolute top-2 right-2 w-6 h-6 cursor-pointer ${
-                    likedItems.includes(item.id) ? 'text-red-500 fill-red-500' : 'text-gray-400'
-                  }`}
-                  onClick={() => handleAddItem(item.id)}
-                />
                 <div className="p-4">
                   <h2 className="text-xl font-semibold text-purple-700 mb-2">{item.name}</h2>
                   <p className="text-sm text-gray-600 mb-1">
@@ -49,6 +41,7 @@ const Menu = () => {
                   <p className="text-sm text-gray-600">
                     ⏱ <span className="font-medium">Prep Time:</span> {item.prepTimeMinutes} mins
                   </p>
+                  <button className='bg-green-500 p-2' onClick={()=>handleAddItem(item)}>Add to Cart</button>
                 </div>
               </div>
             ))}
